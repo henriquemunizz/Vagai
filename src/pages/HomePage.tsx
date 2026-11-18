@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const projectLinks = [
   {
     to: '/sobre', title: 'Por dentro do projeto',
-    text: 'Conheça o recorte do estudo e por que a equipe escolheu olhar para a procura por estacionamento.',
+    text: 'Descubra como a experiência dos integrantes ao volante deu origem ao Vagaí.',
     style: 'bg-brand lg:col-span-7',
   },
   {
@@ -13,12 +13,12 @@ const projectLinks = [
   },
   {
     to: '/faq', title: 'Perguntas frequentes',
-    text: 'Consulte as dúvidas sobre o piloto, a região escolhida e os objetivos do grupo.',
+    text: 'Saiba para quem o Vagaí foi pensado e como a comunidade poderá participar.',
     style: 'bg-white ring-1 ring-black/10 lg:col-span-5',
   },
   {
     to: '/contato', title: 'Converse com a equipe',
-    text: 'Tem uma pergunta sobre o estudo? Encontre os canais de contato dos integrantes.',
+    text: 'Tem uma pergunta sobre o Vagaí? Encontre os canais de contato dos integrantes.',
     style: 'bg-[#ffe6f1] lg:col-span-7',
   },
 ]
@@ -34,10 +34,10 @@ export function HomePage() {
               Onde posso <span className="text-brand">estacionar</span> perto do meu destino?
             </h1>
             <p className="mt-6 max-w-lg leading-7 text-zinc-300">
-              Para quem chega de carro à Avenida Paulista, a viagem pode continuar por mais alguns quarteirões. O Vagaí estuda esse último trecho em busca de uma vaga.
+              Seja para visitar alguém, ir à aula ou chegar ao trabalho, quem dirige em São Paulo nem sempre sabe onde deixar o carro. O Vagaí nasceu para ajudar nessa escolha.
             </p>
-            <a href="#piloto" className="mt-7 inline-flex items-center gap-4 rounded-full bg-brand px-6 py-3 font-bold text-black hover:bg-white">
-              Conheça o piloto <span aria-hidden="true">↓</span>
+            <a href="#proposta" className="mt-7 inline-flex items-center gap-4 rounded-full bg-brand px-6 py-3 font-bold text-black hover:bg-white">
+              Conheça a proposta <span aria-hidden="true">↓</span>
             </a>
           </div>
           <img src="/images/vagai.png" alt="Marca Vagaí, um carro branco com faixas verde e rosa"
@@ -45,22 +45,22 @@ export function HomePage() {
         </div>
       </section>
 
-      <section id="piloto" aria-labelledby="titulo-piloto" className="container-page grid items-start gap-8 py-16 sm:py-24 md:grid-cols-2 md:gap-16">
+      <section id="proposta" aria-labelledby="titulo-proposta" className="container-page grid items-start gap-8 py-16 sm:py-24 md:grid-cols-2 md:gap-16">
         <div>
-          <p className="eyebrow">Avenida Paulista · São Paulo</p>
-          <h2 id="titulo-piloto" className="mt-4 text-4xl leading-tight tracking-tight sm:text-5xl">O que acontece depois que o motorista chega?</h2>
+          <p className="eyebrow">Cidade de São Paulo</p>
+          <h2 id="titulo-proposta" className="mt-4 text-4xl leading-tight tracking-tight sm:text-5xl">Onde quem conhece o bairro costuma estacionar?</h2>
           <p className="mt-5 max-w-lg leading-7 text-zinc-700">Uma rua pode ter vagas gratuitas, outra pode exigir Zona Azul. Um estacionamento privado pode ficar mais perto da entrada do destino. Descobrir essas alternativas só depois de chegar faz parte do problema que motivou o Vagaí.</p>
         </div>
         <div className="rounded-3xl border border-black/10 bg-zinc-50 p-7 sm:p-9">
-          <h3 className="text-2xl">O que queremos medir</h3>
+          <h3 className="text-2xl">Dicas de quem estaciona por lá</h3>
           <dl className="mt-5 divide-y divide-black/10">
             <div className="pb-5">
-              <dt className="font-bold">Tempo de procura</dt>
-              <dd className="mt-1 leading-7 text-zinc-700">Quantos minutos passam entre chegar à região do destino e conseguir estacionar?</dd>
+              <dt className="font-bold">Um endereço para compartilhar</dt>
+              <dd className="mt-1 leading-7 text-zinc-700">Na proposta do Vagaí, quem conhece um bom local poderá indicar o endereço e dizer se ele é gratuito, rotativo ou privado.</dd>
             </div>
             <div className="pt-5">
-              <dt className="font-bold">Distância percorrida</dt>
-              <dd className="mt-1 leading-7 text-zinc-700">Quantos quilômetros o motorista roda nesse intervalo, inclusive ao voltar a uma rua por onde já passou?</dd>
+              <dt className="font-bold">Detalhes que fazem diferença</dt>
+              <dd className="mt-1 leading-7 text-zinc-700">O horário indicado na placa ou a entrada de um estacionamento em uma rua lateral podem ajudar quem visita o bairro pela primeira vez.</dd>
             </div>
           </dl>
         </div>

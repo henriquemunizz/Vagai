@@ -1,15 +1,15 @@
 # Vagaí
 
-Site institucional do projeto acadêmico da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. O Vagaí parte da pergunta “Onde posso estacionar perto do meu destino?”. O piloto proposto estuda a procura por estacionamento na região da Avenida Paulista, em São Paulo.
+Site institucional do projeto acadêmico da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. O Vagaí parte da pergunta “Onde posso estacionar perto do meu destino?”. A ideia surgiu entre os próprios integrantes da equipe. Alguns dirigem em São Paulo e conhecem a dificuldade de achar vaga perto do destino.
 
-O objetivo é reduzir o tempo e a distância percorrida durante a procura. A relação com os ODS 11 e 13 orienta o estudo. Os resultados dependem de medições futuras.
+A proposta é que a própria comunidade possa cadastrar locais gratuitos, rotativos e privados em diferentes bairros da cidade, compartilhando endereços, horários e regras que conhece.
 
 ## Páginas
 
 | Página | Rota | Conteúdo |
 | --- | --- | --- |
-| Início | `/` | Apresentação do Vagaí e do piloto |
-| Sobre | `/sobre` | Contexto, objetivos e avaliação de impacto |
+| Início | `/` | Apresentação do Vagaí e da proposta colaborativa |
+| Sobre | `/sobre` | Origem da ideia e contribuição da comunidade |
 | Integrantes | `/integrantes` | Fotos, turmas e perfis da equipe |
 | FAQ | `/faq` | Perguntas frequentes sobre o projeto |
 | Contato | `/contato` | Acesso aos perfis e formulário com validação local |
