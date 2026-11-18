@@ -35,3 +35,27 @@
   .eyebrow { @apply text-xs font-bold uppercase tracking-[0.16em]; }
   .field { @apply mt-2 w-full rounded-lg border border-zinc-300 bg-white px-4 py-3; }
 }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .enter-rise { animation: rise 400ms ease-out backwards; }
+  .card-lift {
+    transition: transform 240ms ease-out, box-shadow 240ms ease-out;
+  }
+  .card-lift:focus-within {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(17 20 19 / 10%);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(17 20 19 / 10%);
+  }
+}
