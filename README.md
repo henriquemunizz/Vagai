@@ -35,3 +35,13 @@ A interface usa React, Vite, TypeScript, React Router, Tailwind CSS e React Hook
 ## Organização Git
 
 A `main` contém um commit inicial vazio. A `develop` parte desse commit e reúne as entregas. Cada branch `feature/*` parte da `develop` e retorna a ela por um commit de merge.
+
+## Integrantes
+
+| Foto | Nome | RM | Turma | Perfis |
+| --- | --- | --- | --- | --- |
+| <img src="public/images/henrique.jpg" width=64 alt="Henrique da Silva Muniz" /> | Henrique da Silva Muniz | 573874 | 1TDSPv-2026 | [GitHub](https://github.com/henriquemunizz) · [LinkedIn](https://www.linkedin.com/in/henrique-muniz-044b05365) |
+| <img src="public/images/erick.jpg" width=64 alt="Erick Keiji Miyashiro" /> | Erick Keiji Miyashiro | 568966 | 1TDSPv-2026 | [GitHub](https://github.com/erickmiyashiro) · [LinkedIn](https://www.linkedin.com/in/erick-keiji-miyashiro-6228b93b4) |
+| <img src="public/images/yuto.jpeg" width=64 alt="Yuto Inoue" /> | Yuto Inoue | 573161 | 1TDSPv-2026 | [GitHub](https://github.com/yutoinouee) · [LinkedIn](https://www.linkedin.com/in/yuto-inoue-713348373) |
+| <img src="public/images/rafael.png" width=64 alt="Rafael Andres" /> | Rafael Andres | — | TDSPX-2026 | [GitHub](https://github.com/Andresxz1) · [LinkedIn](https://www.linkedin.com/in/rafaandres/) |
+| <img src="public/images/vitor.png" width=64 alt="Vitor Rodrigues" /> | Vitor Rodrigues | — | TDSPX-2026 | [GitHub](https://github.com/vitorf8) · [LinkedIn](https://www.linkedin.com/in/vitor-rodrigues-ferreira-22048a30b/) |
