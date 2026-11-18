@@ -27,6 +27,7 @@ export const members: Member[] = [
   },
   {
     name: 'Rafael Andres',
+    rm: '573700',
     className: '1TDSPX-2026',
     image: '/images/rafael.png',
     github: 'https://github.com/Andresxz1',
@@ -34,6 +35,7 @@ export const members: Member[] = [
   },
   {
     name: 'Vitor Rodrigues',
+    rm: '571297',
     className: '1TDSPX-2026',
     image: '/images/vitor.png',
     github: 'https://github.com/vitorf8',
