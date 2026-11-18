@@ -11,13 +11,17 @@ export function AboutPage() {
   return (
     <main className="flex-1">
       <PageHeader title="Sobre o Vagaí" description="Um projeto acadêmico sobre o caminho entre chegar ao destino e encontrar onde estacionar." />
-      <div className="container-page grid gap-x-12 gap-y-10 py-14 md:grid-cols-2">
+      <div className="container-page grid gap-5 py-14 md:grid-cols-2">
         {topics.map(([title, detail]) => (
-          <section key={title} className="border-t-2 border-ink pt-5">
+          <section key={title} className="enter-rise rounded-3xl border border-black/10 bg-zinc-50 p-7 first:bg-brand/15 sm:p-9">
             <h2 className="text-2xl">{title}</h2>
             <p className="mt-3 leading-7 text-zinc-700">{detail}</p>
           </section>
         ))}
+        <section className="rounded-3xl bg-ink p-7 text-white sm:p-9 md:col-span-2">
+          <h2 className="text-2xl">Como este site foi construído</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-zinc-200">As páginas institucionais usam React e TypeScript. O React Router organiza a navegação, o Tailwind CSS adapta o layout a cada tela e o Vite gera a versão de produção.</p>
+        </section>
       </div>
     </main>
   )
