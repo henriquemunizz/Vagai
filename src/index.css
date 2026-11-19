@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import "./solution/solution.css";
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("/fonts/nunito-latin-variable.woff2") format("woff2");
+}
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --font-heading: "Nunito", "Segoe UI", sans-serif;
+  --color-brand: #00f3a5;
+  --color-pink: #ff0080;
+  --color-ink: #111413;
+}
+
+@layer base {
+  body { min-width: 320px; color: var(--color-ink); }
+  h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 900; }
+  :focus-visible { outline: 3px solid #008558; outline-offset: 4px; }
+  ::selection { background: var(--color-brand); color: #000; }
+}
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-5 sm:px-9; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[0.16em]; }
+  .field { @apply mt-2 w-full rounded-lg border border-zinc-300 bg-white px-4 py-3; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .enter-rise { animation: rise 400ms ease-out backwards; }
+  .card-lift {
+    transition: transform 240ms ease-out, box-shadow 240ms ease-out;
+  }
+  .card-lift:focus-within {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(17 20 19 / 10%);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(17 20 19 / 10%);
+  }
+}
