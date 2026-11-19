@@ -1,6 +1,6 @@
 # Vagaí
 
-Site institucional do projeto acadêmico da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. O Vagaí parte da pergunta “Onde posso estacionar perto do meu destino?”. A ideia surgiu entre os próprios integrantes da equipe. Alguns dirigem em São Paulo e conhecem a dificuldade de achar vaga perto do destino.
+Interface do projeto acadêmico da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. O Vagaí parte da pergunta “Onde posso estacionar perto do meu destino?”. A ideia surgiu entre os próprios integrantes da equipe. Alguns dirigem em São Paulo e conhecem a dificuldade de achar vaga perto do destino.
 
 A proposta é que a própria comunidade possa cadastrar locais gratuitos, rotativos e privados em diferentes bairros da cidade, compartilhando endereços, horários e regras que conhece.
 
@@ -13,20 +13,29 @@ A proposta é que a própria comunidade possa cadastrar locais gratuitos, rotati
 | Integrantes | `/integrantes` | Fotos, turmas e perfis da equipe |
 | FAQ | `/faq` | Perguntas frequentes sobre o projeto |
 | Contato | `/contato` | Acesso aos perfis e formulário com validação local |
+| Solução | `/solucao` | Login, cadastro de conta e acesso às funcionalidades |
 
 O endereço `/membros` também leva à equipe. Endereços desconhecidos exibem a página 404.
 
 ## Execução local
 
-Use Node.js 24 e npm. A versão de desenvolvimento está na branch `develop`.
+Use Node.js 24 e npm. A integração está na branch `feature/integracao-api`.
 
 ```sh
-git switch develop
+git switch feature/integracao-api
 npm ci
 npm run dev
 ```
 
 Abra `http://localhost:5173`. Execute `npm run lint` para analisar o código e `npm run build` para validar o TypeScript e gerar o site em `dist/`. O comando `npm run preview` serve essa versão localmente.
+
+## Conexão com o backend
+
+Inicie o projeto Vagai-backend1/vagai com Java 21, o esquema Oracle preparado e as variáveis de ambiente indicadas no README do backend. O frontend usa http://localhost:8080 por padrão. Para apontar para outro servidor, copie `.env.example` para `.env`, ajuste `VITE_API_URL` e reinicie o Vite. Na publicação, defina a variável antes do build.
+
+Configure `FRONTEND_ORIGIN` no Spring com a origem exata do frontend (localmente, http://localhost:5173). Login e logout usam o cookie de sessão do servidor. Para implantação HTTPS entre sites diferentes, configure `COOKIE_SECURE=true` e `COOKIE_SAME_SITE=none` no backend. O navegador precisa permitir o cookie nessa configuração.
+
+Em **Solução**, a busca por rua, bairro e categoria é pública. Cada local exibe endereço, tarifas, horários, avaliações e acesso ao Google Maps pelo endereço. Com uma conta, o motorista pode cadastrar locais, salvar favoritos, avaliar e atualizar a própria nota. Relatos em locais gratuitos e rotativos aparecem por dez minutos. O criador de um local pode adicionar regras de uso na página de detalhes.
 
 ## Interface
 
