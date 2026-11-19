@@ -6,6 +6,7 @@ const links = [
   { to: '/integrantes', label: 'Integrantes' },
   { to: '/faq', label: 'FAQ' },
   { to: '/contato', label: 'Contato' },
+  { to: '/solucao', label: 'Solução' },
 ]
 
 export function Header() {
@@ -17,7 +18,7 @@ export function Header() {
         </NavLink>
         <div className="flex flex-wrap gap-1">
           {links.map(({ to, label }) => (
-            <NavLink key={to} to={to} end className={({ isActive }) =>
+            <NavLink key={to} to={to} end={to !== '/solucao'} className={({ isActive }) =>
               'rounded-full px-3 py-2 text-sm font-semibold ' +
               (isActive ? 'bg-brand text-black' : 'hover:bg-white/15')
             }>{label}</NavLink>
