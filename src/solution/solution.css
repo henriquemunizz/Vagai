@@ -8,4 +8,3 @@
   .solution-button { @apply inline-block w-fit cursor-pointer rounded-full bg-brand px-5 py-2.5 font-semibold text-black hover:bg-emerald-300 disabled:opacity-60; }
   .solution-link { @apply inline-block w-fit cursor-pointer font-semibold underline decoration-emerald-600 underline-offset-4; }
 }
-

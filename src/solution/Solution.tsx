@@ -15,10 +15,12 @@ export function Submit({ children }: { children: React.ReactNode }) {
 }
 
 export function SolutionLayout() {
+  const navigation = useNavigation()
   return (
     <main className="flex-1">
       <PageHeader title="Solução" description="Consulte locais para estacionar e compartilhe o que você conhece em São Paulo." />
       <div className="container-page py-10">
+        {navigation.state === 'loading' && <p role="status" className="mb-3 text-sm">Atualizando…</p>}
         <Outlet />
       </div>
     </main>
@@ -52,7 +54,7 @@ export function SolutionHome() {
     <section className="solution-panel">
       <h2>{user ? user.nome : signup ? 'Criar conta' : 'Entrar na conta'}</h2>
       {error && <div role="alert"><p>{error}</p><button className="solution-link" onClick={() => retry.revalidate()}>Tentar novamente</button></div>}
-      {user ? <Form method="post"><button className="solution-link" name="acao" value="sair">Sair da conta</button></Form> :
+      {user ? <Form method="post"><input type="hidden" name="acao" value="sair" /><Submit>Sair da conta</Submit></Form> :
         <Form method="post" className="solution-form" key={signup ? 'cadastro' : 'login'}>
           {registered && <p role="status">Conta criada. Entre com seu nome e senha.</p>}
           {params.has('entrar') && <p>Entre para acessar esta funcionalidade.</p>}

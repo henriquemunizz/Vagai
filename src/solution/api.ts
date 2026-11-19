@@ -56,4 +56,3 @@ export async function sessao(signal?: AbortSignal) {
 }
 export const endereco = (p: Local) => `${p.rua}, ${p.numero} · ${p.bairro}`
 export const moeda = (n: number | null) => n == null ? 'Não informada' : n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-
