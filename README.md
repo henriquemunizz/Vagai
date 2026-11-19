@@ -1,56 +1,213 @@
-# Vagaí
+# Vagaí — Estacionamento colaborativo em São Paulo
 
-Interface do projeto acadêmico da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. O Vagaí parte da pergunta “Onde posso estacionar perto do meu destino?”. A ideia surgiu entre os próprios integrantes da equipe. Alguns dirigem em São Paulo e conhecem a dificuldade de achar vaga perto do destino.
+- **Aplicação publicada na Vercel:**
+- **Vídeo de apresentação no YouTube:**
 
-A proposta é que a própria comunidade possa cadastrar locais gratuitos, rotativos e privados em diferentes bairros da cidade, compartilhando endereços, horários e regras que conhece.
+![Marca do Vagaí, com carro branco e faixas verde e rosa sobre fundo preto](public/images/vagai.png)
 
-## Páginas
+## Descrição do projeto
 
-| Página | Rota | Conteúdo |
-| --- | --- | --- |
-| Início | `/` | Apresentação do Vagaí e da proposta colaborativa |
-| Sobre | `/sobre` | Origem da ideia e contribuição da comunidade |
-| Integrantes | `/integrantes` | Fotos, turmas e perfis da equipe |
-| FAQ | `/faq` | Perguntas frequentes sobre o projeto |
-| Contato | `/contato` | Acesso aos perfis e formulário com validação local |
-| Solução | `/solucao` | Login, cadastro de conta e acesso às funcionalidades |
+O **Vagaí** é um projeto da **Global Solution 2026/2 da FIAP**, no tema **CitizenTech**. A ideia surgiu entre os integrantes que dirigem em São Paulo e conhecem a dificuldade de estacionar perto do destino. Na área **Solução**, qualquer pessoa pode consultar locais gratuitos, rotativos e privados. Quem entra na conta também pode cadastrar um local, compartilhar um relato, avaliar e salvar favoritos.
 
-O endereço `/membros` também leva à equipe. Endereços desconhecidos exibem a página 404.
+## Funcionalidades
 
-## Execução local
+- Navegação entre as páginas institucionais e a área Solução.
+- Cadastro de conta, login por sessão e logout.
+- Busca pública por rua, bairro e categoria, com endereço, tarifa e acesso aos detalhes.
+- Consulta de horários, regras e avaliações, com rota externa pelo Google Maps.
+- Cadastro de locais e inclusão de regras de uso pelo criador.
+- Relatos de vaga em locais gratuitos e rotativos, visíveis como recentes por dez minutos.
+- Avaliações de um a cinco pontos, com comentário opcional e atualização da própria nota.
+- Lista pessoal de favoritos, com acesso aos detalhes e remoção de locais salvos.
+- Página da equipe, formulário de contato com validação local, layout responsivo e página 404.
 
-Use Node.js 24 e npm. A integração está na branch `feature/integracao-api`.
+## Imagens do projeto
 
-```sh
-git switch feature/integracao-api
+**Página inicial**
+
+A pergunta “Onde posso estacionar perto do meu destino?” apresenta a proposta. O botão **Conheça a proposta** leva à seção sobre as dicas de quem já estaciona no bairro.
+
+![Página inicial do Vagaí com a pergunta sobre onde estacionar, a marca e o botão Conheça a proposta](public/images/vagai-inicio.png)
+
+**Busca de estacionamentos**
+
+O motorista pode combinar rua, bairro e categoria. Na captura, a busca exibe 14 locais. Os dois primeiros cards mostram a diferença entre um local gratuito e uma garagem que cobra R$ 18,00 pela primeira hora.
+
+![Busca com filtros de rua, bairro e categoria e cards dos locais Livre e Garagem de teste](public/images/vagai-busca.png)
+
+**Meus favoritos**
+
+O local **Livre** aparece na lista pessoal com endereço e indicação de estacionamento gratuito. **Ver detalhes** abre o cadastro do local. **Remover dos favoritos** retira o item da lista do motorista.
+
+![Lista de favoritos com o local Livre, seu endereço e as ações de consultar detalhes e remover](public/images/vagai-favoritos.png)
+
+**Cadastro de local**
+
+O motorista pode conferir os locais já cadastrados antes de preencher o formulário. A captura mostra os campos de nome, categoria, rua, número ou referência e bairro, com a categoria **Gratuito** selecionada.
+
+![Formulário Cadastrar local com o atalho para conferir cadastros existentes e os campos de identificação e endereço](public/images/vagai-cadastro-local.png)
+
+## Tecnologias utilizadas
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router DOM
+- React Hook Form
+- Java 21, Spring Boot, JDBC e Oracle no backend
+- Git e GitHub
+
+## Como usar
+
+- **Repositório GitHub:** [Vagaí](https://github.com/henriquemunizz/Vagai)
+- **Aplicação publicada na Vercel:**
+- **API Java publicada:** [Vagaí no Render](https://vagai-springboot.onrender.com/)
+- **Repositório API no GitHub:** [Vagaí Spring Boot](https://github.com/henriquemunizz/vagai-springboot)
+- **Vídeo de apresentação no YouTube:**
+
+### Pré-requisitos
+
+- Node.js 24 e npm instalados.
+- API Java em execução com acesso ao esquema Oracle do Vagaí. O repositório do backend contém os scripts SQL e as instruções para configurar `ORACLE_URL`, `ORACLE_USER` e `ORACLE_PASSWORD`.
+
+### Instalação
+
+Na pasta do frontend, instale as dependências:
+
+```bash
 npm ci
+```
+
+### Execução em ambiente de desenvolvimento
+
+Para usar o backend publicado, copie `.env.example` para `.env` e configure `VITE_API_URL=https://vagai-springboot.onrender.com`. Para trabalhar com a API local, use o seguinte valor:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+Inicie o frontend:
+
+```bash
 npm run dev
 ```
 
-Abra `http://localhost:5173`. Execute `npm run lint` para analisar o código e `npm run build` para validar o TypeScript e gerar o site em `dist/`. O comando `npm run preview` serve essa versão localmente.
+Abra [o Vagaí no navegador](http://localhost:5173). Reinicie o Vite após editar o `.env`. Na publicação, configure `VITE_API_URL` antes do build.
 
-## Conexão com o backend
+### Verificação do projeto
 
-Inicie o projeto Vagai-backend1/vagai com Java 21, o esquema Oracle preparado e as variáveis de ambiente indicadas no README do backend. O frontend usa http://localhost:8080 por padrão. Para apontar para outro servidor, copie `.env.example` para `.env`, ajuste `VITE_API_URL` e reinicie o Vite. Na publicação, defina a variável antes do build.
+```bash
+npm run lint
+npm run build
+```
 
-Configure `FRONTEND_ORIGIN` no Spring com a origem exata do frontend (localmente, http://localhost:5173). Login e logout usam o cookie de sessão do servidor. Para implantação HTTPS entre sites diferentes, configure `COOKIE_SECURE=true` e `COOKIE_SAME_SITE=none` no backend. O navegador precisa permitir o cookie nessa configuração.
+## Rotas
 
-Em **Solução**, a busca por rua, bairro e categoria é pública. Cada local exibe endereço, tarifas, horários, avaliações e acesso ao Google Maps pelo endereço. Com uma conta, o motorista pode cadastrar locais, salvar favoritos, avaliar e atualizar a própria nota. Relatos em locais gratuitos e rotativos aparecem por dez minutos. O criador de um local pode adicionar regras de uso na página de detalhes.
+| Rota | Página |
+| --- | --- |
+| `/` | Home |
+| `/sobre` | Sobre o projeto |
+| `/integrantes` | Integrantes |
+| `/faq` | Perguntas frequentes |
+| `/contato` | Contato |
+| `/solucao` | Login, sessão e acesso às funcionalidades |
+| `/solucao?modo=cadastro` | Cadastro de conta |
+| `/solucao/locais` | Busca pública de estacionamentos |
+| `/solucao/locais/:id` | Detalhes, regras, relatos e avaliações de um local |
+| `/solucao/cadastrar` | Cadastro de local |
+| `/solucao/favoritos` | Favoritos do motorista |
+| `/membros` | Redirecionamento para Integrantes |
+| `*` | Página não encontrada |
 
-## Interface
+## Estrutura de pastas
 
-A interface usa React, Vite, TypeScript, React Router, Tailwind CSS e React Hook Form. As fontes Inter (textos) e Nunito (títulos e marca) são servidas localmente. A identidade combina o carro branco sobre fundo preto com faixas verde e rosa.
+```text
+public/
+├── fonts/               # Fontes Inter e Nunito e suas licenças
+└── images/              # Marca, fotos dos integrantes e capturas do README
 
-## Organização Git
+src/
+├── components/          # Navegação e componentes compartilhados
+├── data/                # Dados dos integrantes
+├── pages/               # Páginas institucionais e 404
+├── solution/            # Telas da solução, sessão e chamadas à API
+├── types/               # Tipos compartilhados
+├── App.tsx              # Rotas da aplicação
+├── index.css            # Tailwind CSS e identidade visual
+└── main.tsx             # Entrada do React
+```
 
-A `main` contém um commit inicial vazio. A `develop` parte desse commit e reúne as entregas. Cada branch `feature/*` parte da `develop` e retorna a ela por um commit de merge.
+## Integração com a API
 
-## Integrantes
+O cliente em `src/solution/api.ts` usa `fetch`. O arquivo `src/solution/routes.ts` carrega os dados das páginas e envia as ações de cadastro, login e colaboração. A busca consulta a API por rua e bairro e aplica a categoria escolhida à lista retornada.
 
-| Foto | Nome | RM | Turma | Perfis |
-| --- | --- | --- | --- | --- |
-| <img src="public/images/henrique.jpg" width=64 alt="Henrique da Silva Muniz" /> | Henrique da Silva Muniz | 573874 | 1TDSPV-2026 | [GitHub](https://github.com/henriquemunizz) · [LinkedIn](https://www.linkedin.com/in/henrique-muniz-044b05365) |
-| <img src="public/images/erick.jpg" width=64 alt="Erick Keiji Miyashiro" /> | Erick Keiji Miyashiro | 568966 | 1TDSPV-2026 | [GitHub](https://github.com/erickmiyashiro) · [LinkedIn](https://www.linkedin.com/in/erick-keiji-miyashiro-6228b93b4) |
-| <img src="public/images/yuto.jpeg" width=64 alt="Yuto Inoue" /> | Yuto Inoue | 573161 | 1TDSPV-2026 | [GitHub](https://github.com/yutoinouee) · [LinkedIn](https://www.linkedin.com/in/yuto-inoue-713348373) |
-| <img src="public/images/rafael.png" width=64 alt="Rafael Andres" /> | Rafael Andres | 573700 | 1TDSPX-2026 | [GitHub](https://github.com/Andresxz1) · [LinkedIn](https://www.linkedin.com/in/rafaandres/) |
-| <img src="public/images/vitor.png" width=64 alt="Vitor Rodrigues" /> | Vitor Rodrigues | 571297 | 1TDSPX-2026 | [GitHub](https://github.com/vitorf8) · [LinkedIn](https://www.linkedin.com/in/vitor-rodrigues-ferreira-22048a30b/) |
+### Sessão e origem local
+
+- Configure `FRONTEND_ORIGIN=http://localhost:5173` no backend. Ao mudar a origem do frontend, atualize essa variável e reinicie a API.
+- As chamadas usam `credentials: 'include'`. O navegador gerencia o cookie de sessão `JSESSIONID`, e `GET /usuarios/me` recupera o usuário conectado.
+- Após criar uma conta, o motorista entra com nome e senha. Ao acessar uma função protegida, o login preserva o destino escolhido.
+- Para HTTPS entre sites diferentes, configure `COOKIE_SECURE=true` e `COOKIE_SAME_SITE=none` no backend e permita o uso do cookie no navegador.
+
+### Contratos utilizados
+
+| Recurso | Campos |
+| --- | --- |
+| Cadastro e login | `nome`, `senha` |
+| Usuário da sessão | `id`, `nome` |
+| Estacionamento | `id`, `nome`, `descricao`, `tipo`, `rua`, `numero`, `bairro`, `primeiraHora`, `demaisHoras`, `idUsuarioCriador`, `ativo` |
+| Regra | `id`, `idEstacionamento`, `diaSemana`, `inicio`, `fim`, `tipo`, `descricao`, `ativo` |
+| Relato | `id`, `idEstacionamento`, `tipo`, `observacao`, `data`, `atual` |
+| Avaliação | `id`, `idEstacionamento`, `idUsuario`, `nota`, `comentario` |
+| Favorito | `id`, `idEstacionamento` |
+
+O cadastro de estacionamento envia `GRATUITO`, `ROTATIVO` ou `PRIVADO`. Para locais privados, o motorista informa a primeira hora e a hora adicional. O cadastro do endereço permanece disponível para consulta. A janela de dez minutos se aplica aos relatos de vaga.
+
+### Branch de integração
+
+A branch `feature/integracao-api` reuniu o login, a busca e a colaboração. A `feature/cards-solucao` refinou os cards e a navegação. Ambas estão integradas à `develop`.
+
+## Integrantes e créditos
+
+### Henrique da Silva Muniz
+
+- **RM:** 573874
+- **Turma:** 1TDSPV-2026
+- **GitHub:** [henriquemunizz](https://github.com/henriquemunizz)
+- **LinkedIn:** [Henrique da Silva Muniz](https://www.linkedin.com/in/henrique-muniz-044b05365)
+
+### Erick Keiji Miyashiro
+
+- **RM:** 568966
+- **Turma:** 1TDSPV-2026
+- **GitHub:** [erickmiyashiro](https://github.com/erickmiyashiro)
+- **LinkedIn:** [Erick Keiji Miyashiro](https://www.linkedin.com/in/erick-keiji-miyashiro-6228b93b4)
+
+### Yuto Inoue
+
+- **RM:** 573161
+- **Turma:** 1TDSPV-2026
+- **GitHub:** [yutoinouee](https://github.com/yutoinouee)
+- **LinkedIn:** [Yuto Inoue](https://www.linkedin.com/in/yuto-inoue-713348373)
+
+### Rafael Andres
+
+- **RM:** 573700
+- **Turma:** 1TDSPY-2026
+- **GitHub:** [Andresxz1](https://github.com/Andresxz1)
+- **LinkedIn:** [Rafael Andres](https://www.linkedin.com/in/rafaandres/)
+
+### Vitor Rodrigues
+
+- **RM:** 571297
+- **Turma:** 1TDSPY-2026
+- **GitHub:** [vitorf8](https://github.com/vitorf8)
+- **LinkedIn:** [Vitor Rodrigues](https://www.linkedin.com/in/vitor-rodrigues-ferreira-22048a30b/)
+
+## Contato
+
+A página **Contato** reúne o acesso aos perfis da equipe. Para falar com um integrante, use o LinkedIn indicado nos créditos acima.
+
+## Observação
+
+Os endereços, valores e resultados nas capturas registram o estado da aplicação no momento das imagens. A lista exibida ao consultar o site depende dos locais cadastrados na API.
