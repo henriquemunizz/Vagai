@@ -1,4 +1,5 @@
-import { Form, Link, Outlet, useActionData, useNavigation, useRevalidator, useRouteError, useSearchParams } from 'react-router-dom'
+import { accessTarget } from './access'
+import { Form, Link, Navigate, Outlet, useActionData, useNavigation, useRevalidator, useRouteError, useSearchParams } from 'react-router-dom'
 import { useSession } from './useSession'
 
 export function Feedback() {
@@ -53,9 +54,19 @@ export function SolutionHome() {
   const retry = useRevalidator()
   const registered = params.has('cadastro')
   const signup = params.get('modo') === 'cadastro'
-  return <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-10">
+  const target = accessTarget(params.get('destino'))
+  const access = target === 'favoritos'
+    ? { title: 'Meus favoritos', icon: '☆', description: 'Entre para consultar os locais que você salvou.' }
+    : { title: 'Cadastrar um local', icon: '+', description: 'Entre para compartilhar um local para estacionar.' }
+  const toggle = new URLSearchParams()
+  if (target) toggle.set('destino', target)
+  if (!signup) toggle.set('modo', 'cadastro')
+  if (user && target) return <Navigate replace to={'/solucao/' + target} />
+  return <div className={target ? 'mx-auto w-full max-w-md' : "grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-10"}>
     <section className="solution-panel account-card">
-      <h2>{user ? user.nome : signup ? 'Criar conta' : 'Entrar na conta'}</h2>
+      {target && <span aria-hidden="true" className={`feature-symbol ${target === 'favoritos' ? 'bg-pink-100' : 'bg-emerald-100'}`}>{access.icon}</span>}
+      <h2>{target ? access.title : user ? user.nome : signup ? 'Criar conta' : 'Entrar na conta'}</h2>
+      {target && <p className="text-sm leading-6 text-zinc-700">{signup ? 'Crie sua conta para continuar.' : access.description}</p>}
       {error && <div role="alert"><p>{error}</p><button className="solution-link" onClick={() => retry.revalidate()}>Tentar novamente</button></div>}
       {user ? <Form method="post"><input type="hidden" name="acao" value="sair" /><Submit>Sair da conta</Submit></Form> :
         <Form method="post" className="solution-form" key={signup ? 'cadastro' : 'login'}>
@@ -64,12 +75,12 @@ export function SolutionHome() {
           <input type="hidden" name="acao" value={signup ? 'cadastrar' : 'entrar'} />
           <label>Nome de usuário<input name="nome" className="field" required maxLength={40} autoComplete="username" /></label>
           <label>Senha<input name="senha" type="password" className="field" required minLength={signup ? 8 : undefined} maxLength={255} autoComplete={signup ? 'new-password' : 'current-password'} /></label>
-          <Submit>{signup ? 'Cadastrar' : 'Entrar'}</Submit>
-          <Link className="solution-link" to={signup ? "/solucao" : "/solucao?modo=cadastro"}>{signup ? 'Já tenho conta' : 'Criar uma conta'}</Link>
+          <Submit>{signup ? 'Cadastrar' : target ? 'Entrar e continuar' : 'Entrar'}</Submit>
+          <Link className="solution-link" to={{ pathname: "/solucao", search: toggle.toString() }}>{signup ? 'Já tenho conta' : 'Criar uma conta'}</Link>
         </Form>}
       <Feedback />
     </section>
-    <section className="space-y-4">
+    {target ? <Link className="solution-link mt-5" to="/solucao">← Voltar à solução</Link> : <section className="space-y-4">
       <h2 className="text-3xl">Funcionalidades</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {pages.map(([kind, to, title, detail]) => (
@@ -85,6 +96,6 @@ export function SolutionHome() {
           </Link>
         ))}
       </div>
-    </section>
+    </section>}
   </div>
 }

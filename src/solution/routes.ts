@@ -1,3 +1,4 @@
+import { accessTarget } from './access'
 import { redirect, type ActionFunctionArgs, type LoaderFunctionArgs } from 'react-router-dom'
 import { api, ApiError, sessao, type Local, type Avaliacao, type Relato, type Regra, type Favorito } from './api'
 
@@ -9,14 +10,15 @@ export async function sessionLoader({ request }: LoaderFunctionArgs) {
 function message(error: unknown) {
   return error instanceof Error ? error.message : 'Não foi possível concluir o pedido.'
 }
-function failure(error: unknown) {
-  if (error instanceof ApiError && error.status === 401) return redirect('/solucao?entrar=1')
+function failure(error: unknown, target?: 'cadastrar' | 'favoritos') {
+  if (error instanceof ApiError && error.status === 401) return redirect(target ? '/solucao?destino=' + target : '/solucao?entrar=1')
   return { error: message(error) }
 }
 const field = (data: FormData, name: string) => String(data.get(name) ?? '').trim()
 
 export async function accountAction({ request }: ActionFunctionArgs) {
   const form = await request.formData()
+  const target = accessTarget(new URL(request.url).searchParams.get('destino'))
   try {
     if (field(form, 'acao') === 'sair') {
       try { await api('/usuarios/logout', 'POST') }
@@ -25,9 +27,10 @@ export async function accountAction({ request }: ActionFunctionArgs) {
       const conta = { nome: field(form, 'nome'), senha: String(form.get('senha') ?? '') }
       if (field(form, 'acao') === 'cadastrar') {
         await api('/usuarios', 'POST', conta)
-        return redirect('/solucao?cadastro=ok')
+        return redirect('/solucao?cadastro=ok' + (target ? '&destino=' + target : ''))
       }
       await api('/usuarios/login', 'POST', conta)
+      if (target) return redirect('/solucao/' + target)
     }
     return redirect('/solucao')
   } catch (e) { return { error: message(e) } }
@@ -55,7 +58,7 @@ export async function createAction({ request }: ActionFunctionArgs) {
       primeiraHora: tarifa('primeiraHora'), demaisHoras: tarifa('demaisHoras'), ativo: 1,
     })
     return redirect('/solucao/locais/' + local.id)
-  } catch (e) { return failure(e) }
+  } catch (e) { return failure(e, 'cadastrar') }
 }
 
 export async function detailLoader({ params, request }: LoaderFunctionArgs) {
@@ -108,7 +111,7 @@ export async function favoritesLoader({ request }: LoaderFunctionArgs) {
       ...f, local: await api<Local>('/estacionamentos/' + f.idEstacionamento, 'GET', undefined, request.signal),
     })))
   } catch (e) {
-    if (e instanceof ApiError && e.status === 401) throw redirect('/solucao?entrar=1')
+    if (e instanceof ApiError && e.status === 401) throw redirect('/solucao?destino=favoritos')
     throw e
   }
 }
@@ -116,5 +119,5 @@ export async function favoritesLoader({ request }: LoaderFunctionArgs) {
 export async function favoriteAction({ request }: ActionFunctionArgs) {
   const f = await request.formData()
   try { await api('/favoritos/' + encodeURIComponent(field(f, 'id')), 'DELETE'); return { success: 'Favorito removido.' } }
-  catch (e) { return failure(e) }
+  catch (e) { return failure(e, 'favoritos') }
 }

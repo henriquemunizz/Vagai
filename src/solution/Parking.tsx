@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Form, Link, useLoaderData, useSearchParams } from 'react-router-dom'
+import { Form, Link, Navigate, useLoaderData, useSearchParams } from 'react-router-dom'
 import { categorias, endereco, type Local } from './api'
 import { Feedback, Submit } from './Solution'
 import { useSession } from './useSession'
@@ -29,7 +29,7 @@ export function SearchPage() {
 export function CreatePage() {
   const { user } = useSession()
   const [tipo, setTipo] = useState('GRATUITO')
-  if (!user) return <Link className="solution-link" to="/solucao?entrar=1">Entrar para cadastrar um local</Link>
+  if (!user) return <Navigate replace to="/solucao?destino=cadastrar" />
   return <section className="solution-panel mx-auto max-w-2xl">
     <Link className="solution-link" to="/solucao">Voltar à solução</Link>
     <h2>Cadastrar local</h2><Link to="/solucao/locais" className="solution-link">Conferir locais já cadastrados</Link>
