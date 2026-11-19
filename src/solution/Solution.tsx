@@ -1,7 +1,6 @@
 import { Form, Link, Outlet, useActionData, useNavigation, useRevalidator, useRouteError, useSearchParams } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader'
 import { useSession } from './useSession'
-import './solution.css'
 
 export function Feedback() {
   const data = useActionData() as { error?: string; success?: string } | undefined

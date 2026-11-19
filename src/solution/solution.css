@@ -1,5 +1,3 @@
-@reference "../index.css";
-
 @layer components {
   .solution-panel { @apply space-y-4 rounded-3xl border border-zinc-200 bg-white p-6 sm:p-8; }
   .solution-panel h2 { @apply text-2xl; }
