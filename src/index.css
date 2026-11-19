@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./solution/solution.css";
 
 @font-face {
   font-family: "Inter";
