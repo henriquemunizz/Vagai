@@ -1,5 +1,4 @@
 import { Form, Link, Outlet, useActionData, useNavigation, useRevalidator, useRouteError, useSearchParams } from 'react-router-dom'
-import { PageHeader } from '../components/PageHeader'
 import { useSession } from './useSession'
 
 export function Feedback() {
@@ -16,8 +15,13 @@ export function Submit({ children }: { children: React.ReactNode }) {
 export function SolutionLayout() {
   const navigation = useNavigation()
   return (
-    <main className="flex-1">
-      <PageHeader title="Solução" description="Consulte locais para estacionar e compartilhe o que você conhece em São Paulo." />
+    <main className="flex-1 bg-zinc-50">
+      <header className="solution-hero">
+        <div className="container-page text-center">
+          <h1 className="text-5xl tracking-tight sm:text-6xl">Solução</h1>
+          <p className="mx-auto mt-3 max-w-xl leading-7 text-zinc-300">Consulte locais para estacionar e compartilhe o que você conhece em São Paulo.</p>
+        </div>
+      </header>
       <div className="container-page py-10">
         {navigation.state === 'loading' && <p role="status" className="mb-3 text-sm">Atualizando…</p>}
         <Outlet />
@@ -38,9 +42,9 @@ export function SolutionError() {
 }
 
 const pages = [
-  ['/solucao/locais', 'Buscar estacionamento', 'Consulte endereços, tarifas e informações da comunidade.'],
-  ['/solucao/cadastrar', 'Cadastrar um local', 'Compartilhe um estacionamento ou trecho de rua.'],
-  ['/solucao/favoritos', 'Meus favoritos', 'Reencontre os locais que você salvou.'],
+  ['buscar', '/solucao/locais', 'Buscar estacionamento', 'Consulte endereços, tarifas e informações da comunidade.'],
+  ['cadastrar', '/solucao/cadastrar', 'Cadastrar um local', 'Compartilhe um estacionamento ou trecho de rua.'],
+  ['favoritos', '/solucao/favoritos', 'Meus favoritos', 'Reencontre os locais que você salvou.'],
 ]
 
 export function SolutionHome() {
@@ -49,8 +53,8 @@ export function SolutionHome() {
   const retry = useRevalidator()
   const registered = params.has('cadastro')
   const signup = params.get('modo') === 'cadastro'
-  return <div className="grid items-start gap-6 md:grid-cols-[1fr_1.3fr]">
-    <section className="solution-panel">
+  return <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-10">
+    <section className="solution-panel account-card">
       <h2>{user ? user.nome : signup ? 'Criar conta' : 'Entrar na conta'}</h2>
       {error && <div role="alert"><p>{error}</p><button className="solution-link" onClick={() => retry.revalidate()}>Tentar novamente</button></div>}
       {user ? <Form method="post"><input type="hidden" name="acao" value="sair" /><Submit>Sair da conta</Submit></Form> :
@@ -67,9 +71,20 @@ export function SolutionHome() {
     </section>
     <section className="space-y-4">
       <h2 className="text-3xl">Funcionalidades</h2>
-      {pages.map(([to, title, detail]) => <Link key={to} to={to} className="solution-panel card-lift block">
-        <h3 className="text-xl">{title} <span aria-hidden="true">→</span></h3><p>{detail}</p>
-      </Link>)}
+      <div className="grid gap-4 sm:grid-cols-2">
+        {pages.map(([kind, to, title, detail]) => (
+          <Link key={to} to={to} className={`feature-card card-lift feature-${kind}`}>
+            <div className="flex items-center justify-between" aria-hidden="true">
+              <span className="feature-symbol">
+                {kind === 'buscar' ? <span className="search-symbol" /> : kind === 'cadastrar' ? '+' : '☆'}
+              </span>
+              <span className="text-xl">↗</span>
+            </div>
+            <h3 className="mt-5 text-xl leading-tight sm:text-2xl">{title}</h3>
+            <p className="mt-2 max-w-md text-sm leading-6">{detail}</p>
+          </Link>
+        ))}
+      </div>
     </section>
   </div>
 }

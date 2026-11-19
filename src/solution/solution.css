@@ -6,3 +6,58 @@
   .solution-button { @apply inline-block w-fit cursor-pointer rounded-full bg-brand px-5 py-2.5 font-semibold text-black hover:bg-emerald-300 disabled:opacity-60; }
   .solution-link { @apply inline-block w-fit cursor-pointer font-semibold underline decoration-emerald-600 underline-offset-4; }
 }
+
+@layer components {
+  .solution-hero {
+    @apply border-b-4 border-brand bg-black py-10 text-white sm:py-12;
+  }
+
+  .solution-panel {
+    @apply shadow-sm;
+  }
+
+  .account-card {
+    @apply border-t-4 border-t-brand;
+  }
+
+  .account-card .solution-button {
+    @apply w-full;
+  }
+
+  .account-card .solution-form > .solution-link {
+    @apply mx-auto;
+  }
+
+  .feature-card {
+    @apply block rounded-3xl border border-black/10 p-6 shadow-sm;
+  }
+
+  .feature-buscar {
+    @apply bg-ink text-white sm:col-span-2;
+  }
+
+  .feature-cadastrar {
+    @apply bg-emerald-50;
+  }
+
+  .feature-favoritos {
+    @apply bg-pink-50;
+  }
+
+  .feature-symbol {
+    @apply flex size-10 items-center justify-center rounded-xl bg-white text-3xl leading-none font-semibold text-ink;
+  }
+
+  .feature-buscar .feature-symbol {
+    @apply bg-brand;
+  }
+
+  .search-symbol {
+    @apply relative size-4 rounded-full border-2 border-current;
+  }
+
+  .search-symbol::after {
+    content: "";
+    @apply absolute -right-1.5 -bottom-1 h-0.5 w-2 rotate-45 bg-current;
+  }
+}
