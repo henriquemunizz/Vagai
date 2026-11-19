@@ -38,7 +38,7 @@ export async function api<T>(path: string, method = 'GET', body?: object, signal
     })
   } catch (error) {
     if (signal?.aborted) throw error
-    throw new Error('Não foi possível conectar à API do Vagaí. Confira a conexão e tente novamente.')
+    throw new Error('Não foi possível conectar à API do Vagaí. Confira a conexão e tente novamente.', { cause: error })
   }
   if (!response.ok) {
     const data = await response.json().catch(() => null)
