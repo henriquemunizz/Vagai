@@ -1,7 +1,7 @@
 # Vagaí — Estacionamento colaborativo em São Paulo
 
-- **Aplicação publicada na Vercel:**
-- **Vídeo de apresentação no YouTube:**
+- **Aplicação publicada na Vercel:** https://vagai-three.vercel.app/
+- **Vídeo de apresentação no YouTube:** https://youtu.be/48TSWZVW7p8
 
 ![Marca do Vagaí, com carro branco e faixas verde e rosa sobre fundo preto](public/images/vagai.png)
 
@@ -61,10 +61,10 @@ O motorista pode conferir os locais já cadastrados antes de preencher o formul�
 ## Como usar
 
 - **Repositório GitHub:** [Vagaí](https://github.com/henriquemunizz/Vagai)
-- **Aplicação publicada na Vercel:**
+- **Aplicação publicada na Vercel:** https://vagai-three.vercel.app/
 - **API Java publicada:** [Vagaí no Render](https://vagai-springboot.onrender.com/)
 - **Repositório API no GitHub:** [Vagaí Spring Boot](https://github.com/henriquemunizz/vagai-springboot)
-- **Vídeo de apresentação no YouTube:**
+- **Vídeo de apresentação no YouTube:** https://youtu.be/48TSWZVW7p8
 
 ### Pré-requisitos
 
@@ -77,6 +77,7 @@ Na pasta do frontend, instale as dependências:
 
 ```bash
 npm ci
+npm install
 ```
 
 ### Execução em ambiente de desenvolvimento
@@ -206,8 +207,8 @@ A branch `feature/integracao-api` reuniu o login, a busca e a colaboração. A `
 
 ## Contato
 
-A página **Contato** reúne o acesso aos perfis da equipe. Para falar com um integrante, use o LinkedIn indicado nos créditos acima.
+henriquedasilvamuniz03@gmail.com ou rm573874@fiap.com.br ou 11985963197
 
-## Observação
+erickmiyashiro@gmail.com ou rm568966@fiap.com.br ou 11 947970626
 
-Os endereços, valores e resultados nas capturas registram o estado da aplicação no momento das imagens. A lista exibida ao consultar o site depende dos locais cadastrados na API.
+rm568952@fiap.com.br ou 11947289435
