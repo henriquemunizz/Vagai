@@ -1,4 +1,4 @@
-const base = (import.meta.env.VITE_API_URL || 'http://localhost:8080').replace(/\/$/, '')
+const base = (import.meta.env.VITE_API_URL || 'https://vagai-springboot.onrender.com').replace(/\/$/, '')
 
 export interface Usuario { id: number; nome: string }
 export const categorias = { GRATUITO: 'Gratuito', ROTATIVO: 'Rotativo', PRIVADO: 'Privado' }
