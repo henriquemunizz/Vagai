@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Form, Link, useLoaderData } from 'react-router-dom'
+import { Form, Link, useLocation, useLoaderData } from 'react-router-dom'
 import { categorias, endereco, moeda } from './api'
 import { Feedback, Submit } from './Solution'
 import { useSession } from './useSession'
@@ -11,6 +11,8 @@ const utc = (text: string) => Date.parse(text.endsWith('Z') ? text : text + 'Z')
 
 export function DetailsPage() {
   const { local, regras, relatos, avaliacoes } = useLoaderData() as Awaited<ReturnType<typeof detailLoader>>
+  const { state } = useLocation()
+  const back = state?.fromFavorites ? '/solucao/favoritos' : '/solucao/locais' + (state?.search ? '?' + state.search : '')
   const { user } = useSession()
   const [agora, setAgora] = useState(Date.now)
   useEffect(() => {
@@ -23,7 +25,7 @@ export function DetailsPage() {
   const destino = encodeURIComponent(`${local.rua}, ${local.numero}, ${local.bairro}, São Paulo, SP`)
 
   return <div className="space-y-6">
-    <Link className="solution-link" to="/solucao/locais">Voltar à busca</Link>
+    <Link className="solution-link" to={back}>{state?.fromFavorites ? '← Meus favoritos' : '← Voltar à busca'}</Link>
     <section className="solution-panel">
       <p className="eyebrow">{categorias[local.tipo]}</p><h2>{local.nome}</h2>
       <p>{endereco(local)}</p>{local.descricao && <p>{local.descricao}</p>}
@@ -31,7 +33,7 @@ export function DetailsPage() {
       <div className="flex flex-wrap items-center gap-4">
         <a href={'https://www.google.com/maps/dir/?api=1&destination=' + destino} target="_blank" rel="noreferrer" className="solution-link">Abrir rota no Google Maps</a>
         {user ? <Form method="post"><input type="hidden" name="acao" value="favorito" /><Submit>Salvar nos favoritos</Submit></Form>
-          : <Link className="solution-link" to="/solucao?entrar=1">Entrar para colaborar</Link>}
+          : <Link className="solution-link" to={'/solucao?destino=locais/' + local.id}>Entrar para colaborar</Link>}
       </div>
     </section>
     <Feedback />

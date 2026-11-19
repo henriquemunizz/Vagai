@@ -10,7 +10,7 @@ export async function sessionLoader({ request }: LoaderFunctionArgs) {
 function message(error: unknown) {
   return error instanceof Error ? error.message : 'Não foi possível concluir o pedido.'
 }
-function failure(error: unknown, target?: 'cadastrar' | 'favoritos') {
+function failure(error: unknown, target?: string) {
   if (error instanceof ApiError && error.status === 401) return redirect(target ? '/solucao?destino=' + target : '/solucao?entrar=1')
   return { error: message(error) }
 }
@@ -101,15 +101,21 @@ export async function detailAction({ params, request }: ActionFunctionArgs) {
       }
       default: return { error: 'Ação desconhecida.' }
     }
-  } catch (e) { return failure(e) }
+  } catch (e) { return failure(e, 'locais/' + id) }
 }
 
 export async function favoritesLoader({ request }: LoaderFunctionArgs) {
   try {
     const favoritos = await api<Favorito[]>('/usuarios/me/favoritos', 'GET', undefined, request.signal)
-    return await Promise.all(favoritos.map(async f => ({
-      ...f, local: await api<Local>('/estacionamentos/' + f.idEstacionamento, 'GET', undefined, request.signal),
-    })))
+    return await Promise.all(favoritos.map(async f => {
+      try {
+        const local = await api<Local>('/estacionamentos/' + f.idEstacionamento, 'GET', undefined, request.signal)
+        return { ...f, local }
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 404) return { ...f, local: null }
+        throw error
+      }
+    }))
   } catch (e) {
     if (e instanceof ApiError && e.status === 401) throw redirect('/solucao?destino=favoritos')
     throw e

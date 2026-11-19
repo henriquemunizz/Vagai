@@ -1,3 +1,4 @@
+import { ApiError } from './api'
 import { accessTarget } from './access'
 import { Form, Link, Navigate, Outlet, useActionData, useNavigation, useRevalidator, useRouteError, useSearchParams } from 'react-router-dom'
 import { useSession } from './useSession'
@@ -8,9 +9,9 @@ export function Feedback() {
   return data?.success ? <p role="status" className="rounded-xl bg-emerald-50 p-3">{data.success}</p> : null
 }
 
-export function Submit({ children }: { children: React.ReactNode }) {
+export function Submit({ children, secondary = false }: { children: React.ReactNode; secondary?: boolean }) {
   const busy = useNavigation().state !== 'idle'
-  return <button className="solution-button" disabled={busy}>{busy ? 'Aguarde…' : children}</button>
+  return <button className={secondary ? 'secondary-action' : 'solution-button'} disabled={busy}>{busy ? 'Aguarde…' : children}</button>
 }
 
 export function SolutionLayout() {
@@ -34,10 +35,12 @@ export function SolutionLayout() {
 export function SolutionError() {
   const error = useRouteError()
   const retry = useRevalidator()
-  return <section className="solution-panel">
-    <h2>Não foi possível abrir esta página</h2>
+  const missing = error instanceof ApiError && error.status === 404
+  return <section className="empty-panel">
+    <h2>{missing ? 'Local não encontrado' : 'Não foi possível carregar esta página'}</h2>
     <p role="alert">{error instanceof Error ? error.message : 'Confira a conexão com a API.'}</p>
-    <button className="solution-button" onClick={() => retry.revalidate()}>Tentar novamente</button>
+    {missing ? <Link className="solution-button" to="/solucao/locais">Buscar outro local</Link> :
+      <button className="solution-button" disabled={retry.state !== 'idle'} onClick={() => retry.revalidate()}>{retry.state === 'idle' ? 'Tentar novamente' : 'Tentando…'}</button>}
     <Link className="solution-link" to="/solucao">Voltar à solução</Link>
   </section>
 }
@@ -57,6 +60,7 @@ export function SolutionHome() {
   const target = accessTarget(params.get('destino'))
   const access = target === 'favoritos'
     ? { title: 'Meus favoritos', icon: '☆', description: 'Entre para consultar os locais que você salvou.' }
+    : target?.startsWith('locais/') ? { title: 'Colaborar neste local', icon: '+', description: 'Entre para avaliar, enviar um relato ou salvar este estacionamento.' }
     : { title: 'Cadastrar um local', icon: '+', description: 'Entre para compartilhar um local para estacionar.' }
   const toggle = new URLSearchParams()
   if (target) toggle.set('destino', target)
@@ -89,10 +93,11 @@ export function SolutionHome() {
               <span className="feature-symbol">
                 {kind === 'buscar' ? <span className="search-symbol" /> : kind === 'cadastrar' ? '+' : '☆'}
               </span>
-              <span className="text-xl">↗</span>
+              <span className="feature-arrow">→</span>
             </div>
             <h3 className="mt-5 text-xl leading-tight sm:text-2xl">{title}</h3>
             <p className="mt-2 max-w-md text-sm leading-6">{detail}</p>
+            {!user && kind !== 'buscar' && <span className="mt-4 inline-block text-xs font-semibold text-zinc-600">Requer login</span>}
           </Link>
         ))}
       </div>

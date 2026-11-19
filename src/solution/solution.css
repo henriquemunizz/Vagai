@@ -61,3 +61,21 @@
     @apply absolute -right-1.5 -bottom-1 h-0.5 w-2 rotate-45 bg-current;
   }
 }
+
+@layer components {
+  .local-card { @apply flex min-w-0 flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm; }
+  .local-card-link { @apply flex flex-1 flex-col items-start break-words p-6 hover:bg-emerald-50/40 focus-visible:outline-offset-[-4px]; }
+  .local-card-link > div { @apply w-full; }
+  .category-chip { @apply inline-flex rounded-full px-3 py-1 text-xs font-bold; }
+  .category-gratuito { @apply bg-emerald-100 text-emerald-900; }
+  .category-rotativo { @apply bg-zinc-100 text-zinc-800; }
+  .category-privado { @apply bg-pink-100 text-pink-900; }
+  .card-action { @apply inline-flex items-center gap-2 font-bold text-emerald-800 group-hover:underline; }
+  .feature-arrow { @apply grid size-9 place-items-center rounded-full border border-current/25 text-lg; }
+  .secondary-action { @apply cursor-pointer rounded-lg py-2 text-sm font-semibold text-zinc-600 hover:text-rose-800 hover:underline; }
+  .empty-panel { @apply mx-auto flex w-full max-w-2xl flex-col items-center gap-4 rounded-3xl border border-zinc-200 bg-white px-6 py-10 text-center; }
+  .empty-panel h2, .empty-panel h3 { @apply text-2xl; }
+  .empty-panel p { @apply max-w-md leading-6 text-zinc-600; }
+  .favorite-symbol { @apply grid size-12 place-items-center rounded-2xl bg-pink-100 text-3xl; }
+  .solution-link { @apply rounded-sm decoration-2 hover:text-emerald-800; }
+}
